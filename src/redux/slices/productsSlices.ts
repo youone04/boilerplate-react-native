@@ -9,7 +9,7 @@ interface ProducsState {
 
 const initialState: ProducsState = {
   products: [],
-  loading: false,
+  loading: true,
   error: null,
 };
 
@@ -28,10 +28,10 @@ const productsSlice = createSlice({
     });
     builder.addCase(fetchProductsThunk.fulfilled, (state, action) => {
       state.products = action.payload;
-      state.loading = false;
+      state.loading = true;
     });
     builder.addCase(fetchProductsThunk.rejected, (state, action) => {
-      state.loading = false;
+      state.loading = true;
       state.error = action.error.message || 'Failed to fetch product';
     });
   },
