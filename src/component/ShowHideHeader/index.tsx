@@ -9,7 +9,7 @@ import {
   GestureResponderEvent,
   Dimensions,
 } from 'react-native';
-import { useAppDispatch,useAppSelector } from '../../redux/hooks';
+import { useAppDispatch } from '../../redux/hooks';
 import { hideHeader, showHeader } from '../../redux/slices/showHideHeader';
 
 interface CardItem {
@@ -20,9 +20,7 @@ interface CardItem {
 const ShowHideHeader: React.FC = () => {
   const [visibleItem, setVisibleItem] = useState<boolean>(false);
   const height = Dimensions.get('window');
-  const dispatch = useAppDispatch()
-    const {isShowHeader} = useAppSelector(state => state.showHeaderReducer);
-  
+  const dispatch = useAppDispatch()  
 
   const data: CardItem[] = [
     {id: '1', name: 'Card 1'},
@@ -31,13 +29,13 @@ const ShowHideHeader: React.FC = () => {
   ];
 
   const handleLongPress = (id: string): void => {
-    setVisibleItem(!visibleItem);
     dispatch(showHeader())
-  };
+    setVisibleItem(!visibleItem);
+  }
 
   const handleDismiss = (event: GestureResponderEvent): void => {
-    setVisibleItem(!visibleItem);
     dispatch(hideHeader())
+    setVisibleItem(!visibleItem);
   };
 
   const renderItem = ({item}: {item: CardItem}) => (
@@ -50,13 +48,12 @@ const ShowHideHeader: React.FC = () => {
     </TouchableWithoutFeedback>
   );
 
-  console.log('isShowHeader',isShowHeader)
   return (
     <>
       {visibleItem && (
         <TouchableWithoutFeedback onPress={handleDismiss}>
           <View style={[styles.overlay, {height: height.height}]}>
-            <View>
+            <View style={styles.containerButton}>
               <TouchableOpacity
                 style={styles.button}
                 onPress={() => console.log('Cancel')}>
@@ -92,7 +89,12 @@ const styles = StyleSheet.create({
   },
   containerButton : {
     display: 'flex',
-    flexDirection: 'row'
+    flexDirection: 'row',
+    backgroundColor: '#fff',
+    height: 'auto',
+    justifyContent: 'flex-end',
+    gap: 5,
+    paddingHorizontal: 5
   },
   card: {
     backgroundColor: '#f9f9f9',
@@ -110,7 +112,7 @@ const styles = StyleSheet.create({
     left: 0,
     right: 0,
     backgroundColor: 'rgba(0, 0, 0, 0.7)',
-    padding: 10,
+    padding: 2,
     borderRadius: 8,
     zIndex: 10
   },
