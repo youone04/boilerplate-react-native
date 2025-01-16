@@ -1,1 +1,2 @@
 1. private page  handle : https://chatgpt.com/c/6780ee63-b768-8002-b088-c22985ba18a7
+2. slicing 1: https://www.figma.com/design/WT42l4rGxamL2pTh6JLMnQ/E-Learning-App-UI-Template-(Community)?node-id=0-1&p=f&t=rhHmXLNU5Qn3lOka-0
