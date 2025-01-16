@@ -14,8 +14,8 @@ export default function AppTabNavigator() {
   return (
    <NavigationContainer >
      <Tab.Navigator screenOptions={{headerShown: !isShowHeader}}>
-      <Tab.Screen name="Home" component={HomeScreen} />
-      <Tab.Screen name="Profile" component={LoginScreen} />
+      <Tab.Screen name="home" component={HomeScreen} />
+      <Tab.Screen name="profile" component={LoginScreen} />
     </Tab.Navigator>
    </NavigationContainer>
   );

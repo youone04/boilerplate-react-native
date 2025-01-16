@@ -9,8 +9,8 @@ import {
   GestureResponderEvent,
   Dimensions,
 } from 'react-native';
-import { useAppDispatch } from '../../redux/hooks';
-import { hideHeader, showHeader } from '../../redux/slices/showHideHeader';
+import {useAppDispatch, useAppSelector} from '../../redux/hooks';
+import {hideHeader, showHeader} from '../../redux/slices/showHideHeader';
 
 interface CardItem {
   id: string;
@@ -20,7 +20,8 @@ interface CardItem {
 const ShowHideHeader: React.FC = () => {
   const [visibleItem, setVisibleItem] = useState<boolean>(false);
   const height = Dimensions.get('window');
-  const dispatch = useAppDispatch()  
+  const dispatch = useAppDispatch();
+  const {isShowHeader} = useAppSelector(state => state.showHeaderReducer);
 
   const data: CardItem[] = [
     {id: '1', name: 'Card 1'},
@@ -29,12 +30,12 @@ const ShowHideHeader: React.FC = () => {
   ];
 
   const handleLongPress = (id: string): void => {
-    dispatch(showHeader())
+    dispatch(showHeader());
     setVisibleItem(!visibleItem);
-  }
+  };
 
   const handleDismiss = (event: GestureResponderEvent): void => {
-    dispatch(hideHeader())
+    dispatch(hideHeader());
     setVisibleItem(!visibleItem);
   };
 
@@ -51,33 +52,34 @@ const ShowHideHeader: React.FC = () => {
   return (
     <>
       {visibleItem && (
-        <TouchableWithoutFeedback onPress={handleDismiss}>
-          <View style={[styles.overlay, {height: height.height}]}>
-            <View style={styles.containerButton}>
-              <TouchableOpacity
-                style={styles.button}
-                onPress={() => console.log('Cancel')}>
-                <Text style={styles.buttonText}>Cancel</Text>
-              </TouchableOpacity>
-              <TouchableOpacity
-                style={styles.button}
-                onPress={() => console.log('Update')}>
-                <Text style={styles.buttonText}>Update</Text>
-              </TouchableOpacity>
-              <TouchableOpacity
-                style={styles.button}
-                onPress={() => console.log('Add')}>
-                <Text style={styles.buttonText}>Add</Text>
-              </TouchableOpacity>
+        <>
+          <TouchableWithoutFeedback onPress={handleDismiss}>
+            <View style={[styles.overlay, {height: height.height}]}>
+              <View style={styles.containerButton}>
+                <TouchableOpacity style={styles.button} onPress={handleDismiss}>
+                  <Text style={styles.buttonText}>Cancel</Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  style={styles.button}
+                  onPress={() => console.log('Update')}>
+                  <Text style={styles.buttonText}>Update</Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  style={styles.button}
+                  onPress={() => console.log('Add')}>
+                  <Text style={styles.buttonText}>Add</Text>
+                </TouchableOpacity>
+              </View>
             </View>
-          </View>
-        </TouchableWithoutFeedback>
+          </TouchableWithoutFeedback>
+          <View style={{height: 64}} />
+        </>
       )}
       <FlatList
         data={data}
         keyExtractor={item => item.id}
         renderItem={renderItem}
-        contentContainerStyle={styles.container}
+        contentContainerStyle={[styles.container]}
       />
     </>
   );
@@ -87,14 +89,23 @@ const styles = StyleSheet.create({
   container: {
     padding: 16,
   },
-  containerButton : {
+  containerButton: {
     display: 'flex',
     flexDirection: 'row',
     backgroundColor: '#fff',
-    height: 'auto',
+    height: 62,
     justifyContent: 'flex-end',
     gap: 5,
-    paddingHorizontal: 5
+    paddingHorizontal: 5,
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 1,
+    },
+    shadowOpacity: 0.2,
+    shadowRadius: 1.41,
+
+    elevation: 2,
   },
   card: {
     backgroundColor: '#f9f9f9',
@@ -111,20 +122,20 @@ const styles = StyleSheet.create({
     position: 'absolute',
     left: 0,
     right: 0,
-    backgroundColor: 'rgba(0, 0, 0, 0.7)',
+    backgroundColor: 'transparent',
     padding: 2,
     borderRadius: 8,
-    zIndex: 10
+    zIndex: 10,
   },
   button: {
     backgroundColor: '#007bff',
     padding: 10,
     borderRadius: 5,
     marginVertical: 5,
-    height: 60,
+    height: 50,
     display: 'flex',
     justifyContent: 'center',
-    alignContent:'center'
+    alignContent: 'center',
   },
   buttonText: {
     color: '#fff',
