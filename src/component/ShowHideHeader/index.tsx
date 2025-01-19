@@ -9,7 +9,7 @@ import {
   GestureResponderEvent,
   Dimensions,
 } from 'react-native';
-import {useAppDispatch, useAppSelector} from '../../redux/hooks';
+import {useAppDispatch} from '../../redux/hooks';
 import {hideHeader, showHeader} from '../../redux/slices/showHideHeader';
 
 interface CardItem {
@@ -21,7 +21,6 @@ const ShowHideHeader: React.FC = () => {
   const [visibleItem, setVisibleItem] = useState<boolean>(false);
   const height = Dimensions.get('window');
   const dispatch = useAppDispatch();
-  const {isShowHeader} = useAppSelector(state => state.showHeaderReducer);
 
   const data: CardItem[] = [
     {id: '1', name: 'Card 1'},
