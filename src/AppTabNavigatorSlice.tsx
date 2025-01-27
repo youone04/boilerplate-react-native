@@ -3,7 +3,7 @@ import {NavigationContainer} from '@react-navigation/native';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
 import { faHome, faUser, faGraduationCap, faFilePdf } from '@fortawesome/free-solid-svg-icons';
 
-import HomeScreen from './screens/HomeScreen';
+import HomeScreen from './screens/Slicing-1/HomeScreen';
 import LoginScreen from './screens/LoginScreen';
 import { useAppSelector } from './redux/hooks';
 import { useEffect } from 'react';
