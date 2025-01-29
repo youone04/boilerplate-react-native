@@ -5,8 +5,7 @@ import {
   faHome,
   faUser,
   faGraduationCap,
-  faFilePdf,
-  faBackward,
+  faFilePdf
 } from '@fortawesome/free-solid-svg-icons';
 
 import HomeScreen from './screens/Slicing-1/HomeScreen';
@@ -16,8 +15,8 @@ import {useEffect} from 'react';
 import TestGridScreen from './screens/TestGridScrenn';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import CoursesOverView from './screens/Slicing-1/CoursesOverVIew';
-import {TouchableOpacity, View} from 'react-native';
-import {faHeart} from '@fortawesome/free-regular-svg-icons';
+import {View} from 'react-native';
+import { IconLeft, IconRight } from './component/Slicing-1/HeaderMod';
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -77,15 +76,15 @@ export default function AppTabNavigatorSlice() {
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        <Stack.Screen name="Home" component={AppTabNavigation} />
+        <Stack.Screen options={{
+          headerShown:false
+        }} name="Home" component={AppTabNavigation} />
         <Stack.Screen
           options={({navigation}) => ({
             headerLeft: () => (
-              <TouchableOpacity onPress={() => navigation.goBack()}>
-                <FontAwesomeIcon icon={faBackward} />
-              </TouchableOpacity>
+             <IconLeft navigation={navigation}/>
             ),
-            headerRight: () => <FontAwesomeIcon icon={faHeart} />,
+            headerRight: () => <IconRight/>,
             title: 'Corses Overview',
             headerTitleAlign: 'center',
             headerBackground: () => <View></View>,
